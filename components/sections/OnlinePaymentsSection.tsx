@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { SectionHeader } from '../SectionHeader';
 import { FeatureList } from '../FeatureList';
@@ -7,9 +8,18 @@ import { Button } from '../Button';
 import { Laptop } from '../devices/Laptop';
 
 export const OnlinePaymentsSection = () => (
-  <section id="online-payments" className="py-24 scroll-mt-20">
+  <section id="online-payments" className="py-24 scroll-mt-20 overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row-reverse items-center gap-16">
-      <div className="w-full lg:w-1/2">
+      {/* Fix: Use 'as any' for motion props to resolve type incompatibility */}
+      <motion.div 
+        {...({
+          initial: { opacity: 0, scale: 0.9, y: 50 },
+          whileInView: { opacity: 1, scale: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.8 }
+        } as any)}
+        className="w-full lg:w-1/2"
+      >
         <Laptop>
           <img src="https://picsum.photos/id/2/1200/800" alt="Online Payment Dashboard" className="w-full h-full object-cover" />
           <div className="absolute top-4 left-4 right-4 h-12 bg-gray-50 rounded-lg shadow-sm border border-gray-200 flex items-center px-4 justify-between">
@@ -22,8 +32,17 @@ export const OnlinePaymentsSection = () => (
             </div>
           </div>
         </Laptop>
-      </div>
-      <div className="w-full lg:w-1/2">
+      </motion.div>
+      {/* Fix: Use 'as any' for motion props to resolve type incompatibility */}
+      <motion.div 
+        {...({
+          initial: { opacity: 0, x: -50 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.8 }
+        } as any)}
+        className="w-full lg:w-1/2"
+      >
         <SectionHeader 
           subtitle="Online Payment Solution - Payment Gateway"
           title="Online Payments For Businesses"
@@ -38,7 +57,7 @@ export const OnlinePaymentsSection = () => (
           "Use our ready-to-go Payment Plugins for your e-commerce store."
         ]} />
         <Button variant="secondary">Get Started <ArrowRight size={20} /></Button>
-      </div>
+      </motion.div>
     </div>
   </section>
 );

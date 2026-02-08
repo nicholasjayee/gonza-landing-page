@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Smartphone as MobileIcon } from 'lucide-react';
 import { SectionHeader } from '../SectionHeader';
 import { FeatureList } from '../FeatureList';
@@ -7,9 +8,18 @@ import { Button } from '../Button';
 import { POSTerminal } from '../devices/POSTerminal';
 
 export const POSSection = () => (
-  <section id="pos" className="py-24 bg-[#F0F7FF] scroll-mt-20">
+  <section id="pos" className="py-24 bg-[#F0F7FF] scroll-mt-20 overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16">
-      <div className="w-full lg:w-1/2 flex justify-center">
+      {/* Fix: Use 'as any' for motion props to resolve type incompatibility */}
+      <motion.div 
+        {...({
+          initial: { opacity: 0, x: -100 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.8, ease: "easeOut" }
+        } as any)}
+        className="w-full lg:w-1/2 flex justify-center"
+      >
         <POSTerminal>
           <img src="https://picsum.photos/id/180/600/1200" alt="POS App Interface" className="w-full h-full object-cover" />
           <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
@@ -17,8 +27,17 @@ export const POSSection = () => (
             <p className="text-xl font-bold">UGX 45,000</p>
           </div>
         </POSTerminal>
-      </div>
-      <div className="w-full lg:w-1/2">
+      </motion.div>
+      {/* Fix: Use 'as any' for motion props to resolve type incompatibility */}
+      <motion.div 
+        {...({
+          initial: { opacity: 0, x: 100 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.8, ease: "easeOut" }
+        } as any)}
+        className="w-full lg:w-1/2"
+      >
         <SectionHeader 
           subtitle="POS Machine for Business - POS Terminal"
           title="Point Of Sale Payments"
@@ -44,7 +63,7 @@ export const POSSection = () => (
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   </section>
 );
